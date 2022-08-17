@@ -1,0 +1,17 @@
+.skyblue {
+  background-color: #1b87f3;
+}
+
+.gap-left {
+  margin-top: 10px;
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+
+.gap-right {
+  margin-right: 30px;
+}
+
+.gap-bottom {
+  margin-bottom: 30px;
+}

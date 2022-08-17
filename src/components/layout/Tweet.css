@@ -1,0 +1,33 @@
+.outer {
+  padding: 20px;
+  width: 90%;
+  margin: auto;
+}
+
+.inner {
+  background-color: #1e90ff;
+  margin: auto;
+  padding: 20px;
+  padding-right: 40px;
+  border-radius: 25px;
+}
+
+.inner-2 {
+  background-color: brown;
+}
+
+.bg-check {
+  background-color: aliceblue;
+}
+
+.tweet-profile {
+  margin: auto;
+  margin-top: 20px;
+  display: flex;
+  height: 100px;
+  width: 100px;
+  vertical-align: middle;
+  background-color: aliceblue;
+  border-radius: 50%;
+  border: solid 2px #edecec;
+}
