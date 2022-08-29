@@ -1,9 +1,8 @@
-import React, { useState, useContext } from "react"
+import React, { useContext } from "react"
 import { Link } from "react-router-dom"
 import NavBarLoggedOut from "./NavBarLoggedOut"
 import NavBarLoggedIn from "./NavBarLoggedIn"
 import StateContext from "../../StateContext"
-import "./NavBar.css"
 
 function NavBar(props) {
   const globalState = useContext(StateContext)

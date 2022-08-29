@@ -4,18 +4,27 @@ import DispatchContext from "../../DispatchContext"
 
 function NarBarLoggedIn(props) {
   const globalDispatch = useContext(DispatchContext)
-
   function handleLogout() {
     globalDispatch({ type: "logout" })
+  }
+
+  function handleSearch(e) {
+    e.preventDefault()
+    globalDispatch({ type: "openSearch" })
   }
 
   return (
     <div className="d-flex navbarNav gap-right">
       <ul className="navbar-nav nav-right">
-        <li className="">
+        <li>
           <Link className="nav-link" to="/">
             Home
           </Link>
+        </li>
+        <li>
+          <a className="nav-link" onClick={handleSearch} href="#">
+            <span>Search</span>
+          </a>
         </li>
         <li>
           <Link className="nav-link" to="/tweets">

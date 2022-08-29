@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import defaultUser from "../../defaultUser.jpeg"
+import defaultUser from "../../assets/img/defaultUser.jpeg"
 import { useParams, Link } from "react-router-dom"
 import axios from "axios"
 import IsLoading from "./IsLoading"
@@ -9,7 +9,7 @@ function ProfileTweets() {
   const { username } = useParams()
   const [isLoading, setIsLoading] = useState(true)
   const [userTweets, setUserTweets] = useState([])
-  const [error, setError] = useState(true)
+  const [error, setError] = useState()
 
   useEffect(() => {
     async function fetchAllUserTweets() {
@@ -20,31 +20,35 @@ function ProfileTweets() {
         setError(false)
       } catch (e) {
         console.log(e.response.data.message)
-        setError(true)
+        setError(e.response.data.message)
         setIsLoading(false)
       }
     }
     fetchAllUserTweets()
-  })
+  }, [username])
 
   if (isLoading) return <IsLoading />
   return (
     <div className="container-xl gy-5">
+      <div className="row p-3 text-left">
+        <div className="col-3 gap-right">
+          <Link to="/users/all">Return to Users</Link>
+        </div>
+      </div>
+
       <div className="row">
         <div className="col-3">
-          <div className="container">
+          <div className="container d-block text-wrap">
             All Tweets from
-            <h2>
-              <strong>{username}</strong>
-            </h2>
+            <h2 className="fw-light">{username}</h2>
             <hr />
-            <img className="img-thumbnail mx-auto d-block user-profile" src={defaultUser} alt="User Image" />
+            <img className="mx-auto d-block user-profile" src={defaultUser} alt="User" />
           </div>
         </div>
         <div className="col-9">
           <div className="container">
             {error ? (
-              <div className="container"> This user does not have any tweets </div>
+              <div className="container text-center">{error}</div>
             ) : (
               userTweets.map(tweet => {
                 return <Tweet key={tweet.id} tweet={tweet} />

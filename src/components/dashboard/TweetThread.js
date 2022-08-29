@@ -1,70 +1,87 @@
-import React, { useEffect, useState } from "react"
-import { Params, Link, useParams } from "react-router-dom"
+import React, { useContext, useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 import axios from "axios"
-import defaultUser from "../../defaultUser.jpeg"
 import ReplyTweet from "./ReplyTweet"
 import Tweet from "../layout/Tweet"
+import DispatchContext from "../../DispatchContext"
+import StateContext from "../../StateContext"
 
 function TweetThread() {
   const { tweetId } = useParams()
   const [mainTweet, setMainTweet] = useState()
-  const [replies, setReplies] = useState()
+  const [replies, setReplies] = useState([])
+  const [mainReplies, setMainReplies] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const globalDispatch = useContext(DispatchContext)
+  const globalState = useContext(StateContext)
 
   useEffect(() => {
-    async function fetchAllUsers() {
+    const ourRequest = axios.CancelToken.source()
+    async function fetchMainTweet() {
       try {
         const response = await axios.get(`http://localhost:8080/api/v1.0/tweets/main/${tweetId}`)
         setMainTweet(response.data)
         setReplies(response.data.replies)
         setIsLoading(false)
+        globalDispatch({ type: "sameTweetList" })
       } catch (e) {
-        console.log(e.response.data)
+        console.log(e.response)
       }
     }
-    fetchAllUsers()
-  })
+    fetchMainTweet()
+    return () => ourRequest.cancel()
+  }, [globalState.isTweetListUpdate, globalDispatch, tweetId])
+
+  useEffect(() => {
+    const replyList = []
+    if (replies) {
+      replies.forEach(reply => {
+        async function fetchReplies() {
+          try {
+            const response = await axios.get(`http://localhost:8080/api/v1.0/tweets/main/${reply.id}`)
+            if (response.data !== "") replyList.push(response.data)
+            console.log(response.data)
+            globalDispatch({ type: "updateTweetList" })
+            globalDispatch({ type: "sameTweetList" })
+          } catch (e) {
+            console.log("Something went wrong")
+          }
+        }
+        fetchReplies()
+        setMainReplies(replyList)
+      })
+    }
+  }, [replies, globalDispatch, globalState.isTweetListUpdate])
 
   if (isLoading) return <div>Loading...</div>
 
   return (
     <div className="container p-3">
-      <div className="row">
-        <div className="outer">
-          <div className="inner">
-            <div className="row">
-              <div className="col-2">
-                <img className="tweet-profile" src={defaultUser} alt="Profile Pic" />
-              </div>
-              <div className="col">
-                <div className="card">
-                  <div className="card-body">
-                    <h5 className="card-title">@{mainTweet.username}</h5>
-                    <h6 className="card-subtitle mb-2 text-muted">{mainTweet.datetime}</h6>
-                    <p className="card-text">{mainTweet.description}</p>
-                  </div>
-                </div>
-              </div>
+      {mainTweet ? (
+        <div className="row">
+          <div className="outer">
+            <Tweet tweet={mainTweet} />
+
+            <ReplyTweet />
+            <div className="container text-center">
+              <strong>Replies on this tweet</strong>
+              <hr></hr>
+              {replies ? replies.length === 0 ? <p className="text-center"> There are no replies on this tweet</p> : "" : ""}
+            </div>
+            <div className="gap-left container w-75 float-right">
+              {replies
+                ? replies.length !== 0
+                  ? mainReplies.map(reply => {
+                      return <Tweet key={reply.id} tweet={reply} />
+                    })
+                  : ""
+                : ""}
             </div>
           </div>
-          <ReplyTweet />
-          <div className="container text-center">
-            <strong>Replies from most recent</strong>
-            <hr></hr>
-          </div>
-          <div className="gap-left container">
-            {replies ? (
-              replies.map(reply => {
-                return <Tweet key={reply.id} tweet={reply} />
-              })
-            ) : (
-              <div className="container text-center">
-                <p> There are no replies on this tweet</p>
-              </div>
-            )}
-          </div>
         </div>
-      </div>
+      ) : (
+        <div className="text-center">Sorry! Looks like the tweet you're looking for has been deleted</div>
+      )}
     </div>
   )
 }

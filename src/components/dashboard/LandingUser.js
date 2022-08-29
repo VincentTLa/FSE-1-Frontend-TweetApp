@@ -1,13 +1,14 @@
 import React, { useState, useContext, useEffect } from "react"
 import CreateTweet from "../layout/CreateTweet"
 import axios from "axios"
-import { Link } from "react-router-dom"
-import defaultUser from "../../defaultUser.jpeg"
+import defaultUser from "../../assets/img/defaultUser.jpeg"
 import StateContext from "../../StateContext"
 import Tweet from "../layout/Tweet"
+import DispatchContext from "../../DispatchContext"
 
 function LandingUser() {
   const globalState = useContext(StateContext)
+  const globalDispatch = useContext(DispatchContext)
   const [tweets, setTweets] = useState([])
 
   useEffect(() => {
@@ -15,32 +16,35 @@ function LandingUser() {
       try {
         const response = await axios.get("http://localhost:8080/api/v1.0/tweets/all")
         setTweets(response.data)
+        globalDispatch({ type: "sameTweetList" })
       } catch (e) {
-        console.log(e.resposne.data)
+        console.log(e.response.data)
       }
     }
     fetchAllTweets()
-  })
+  }, [globalState.isTweetListUpdate])
 
   return (
     <>
-      <div className="container-xl gy-5">
+      <div className="container gy-5">
         <div className="row">
           <div className="col-3">
             <h1>
               Welcome <strong>{globalState.user.username}</strong>!
             </h1>
             <hr />
-            <img className="img-thumbnail mx-auto d-block user-profile" src={defaultUser} alt="User Image" />
+            <img className="mx-auto user-profile" src={defaultUser} alt="User" />
           </div>
           <div className="col-9">
             <h2>Create a new Tweet!</h2>
             <CreateTweet />
-            <div>
+            <div className="">
               <h2>Explore new tweets!</h2>
-              {tweets.slice(0, 3).map(tweet => {
-                return <Tweet key={tweet.id} tweet={tweet} />
-              })}
+              {tweets
+                ? tweets.slice(0, 5).map(tweet => {
+                    return <Tweet key={tweet.id} tweet={tweet} />
+                  })
+                : ""}
             </div>
           </div>
         </div>
