@@ -6,6 +6,26 @@ This project is the front end for the FSE-1 Use case, where a user can register,
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Screenshots of the application
+
+### Register
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/37315218/187133222-d8820e69-1acc-42bc-b69a-7539dee1c3e9.png">
+
+### Login
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/37315218/187133283-770cdaa1-6d38-4c55-8313-7a53219ffe8b.png">
+
+### Landing User homepage
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/37315218/187133698-85a25d8e-a895-4e1f-a43a-f952e8699715.png">
+
+### Viewing all tweets
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/37315218/187133806-db3db1f7-c146-4165-b36f-93faee92e06b.png">
+
+### Searching for a user
+
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/37315218/187133664-794b25ab-95d5-4d05-879d-827c57082727.png">
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
