@@ -2,12 +2,14 @@ import React, { useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import DispatchContext from "../../DispatchContext"
+import errorPoint from "../../assets/img/exclamation-triangle-fill.svg"
 
 function Login() {
   const globalDispatch = useContext(DispatchContext)
   const navigate = useNavigate()
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
+  const [error, setError] = useState()
 
   const theUser = {
     username: username,
@@ -27,6 +29,7 @@ function Login() {
       }
     } catch (e) {
       console.log(e.response.data)
+      setError(e.response.data.message)
     }
   }
 
@@ -43,7 +46,16 @@ function Login() {
             <label className="text-white">Password </label>
             <input className="form-control text-left" onChange={e => setPassword(e.target.value)} type="password" name="password" required />
           </div>
-
+          {error ? (
+            <div className="pt-4">
+              <span className="pe-2">
+                <img className="text-danger" alt="" fill="#FF0000" src={errorPoint} />
+              </span>
+              <label className="m-auto p-2 border border-danger text-danger bg-white rounded ">{error}</label>
+            </div>
+          ) : (
+            ""
+          )}
           <div className="container py-3 mt-4">
             <div className="row gx-3">
               <div className="col-6">
