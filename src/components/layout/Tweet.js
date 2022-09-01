@@ -49,7 +49,8 @@ function Tweet(props) {
   }
 
   // Handles the delete functionality of a tweet
-  async function handleDelete() {
+  async function handleDelete(e) {
+    e.preventDefault()
     try {
       // When clicked, sends api call to delete tweet
       await axios.delete(`http://localhost:8080/api/v1.0/tweets/${globalState.user.username}/delete/${tweet.id}`)
