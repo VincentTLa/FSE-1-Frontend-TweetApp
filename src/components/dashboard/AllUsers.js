@@ -9,7 +9,7 @@ function AllUsers() {
   useEffect(() => {
     async function fetchAllUsers() {
       try {
-        const response = await axios.get("http://localhost:8080/api/v1.0/tweets/users/all")
+        const response = await axios.get("users/all")
         setUsers(response.data)
       } catch (e) {
         console.log(e.response.data)

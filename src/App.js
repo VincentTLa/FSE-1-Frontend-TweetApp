@@ -22,6 +22,10 @@ import TweetThread from "./components/dashboard/TweetThread"
 import Search from "./components/dashboard/Search"
 import ForgotPassword from "./components/auth/ForgotPassword"
 
+// Axios default URL
+import axios from "axios"
+axios.defaults.baseURL = "http://3.25.87.106/api/v1.0/tweets"
+
 function App() {
   const initialState = {
     loggedIn: Boolean(localStorage.getItem("username")),

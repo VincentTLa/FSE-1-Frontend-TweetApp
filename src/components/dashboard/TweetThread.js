@@ -19,7 +19,7 @@ function TweetThread() {
     const ourRequest = axios.CancelToken.source()
     async function fetchMainTweet() {
       try {
-        const response = await axios.get(`http://localhost:8080/api/v1.0/tweets/main/${tweetId}`)
+        const response = await axios.get(`/main/${tweetId}`)
         setMainTweet(response.data)
         setReplies(response.data.replies)
         setIsLoading(false)

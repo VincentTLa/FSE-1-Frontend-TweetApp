@@ -14,7 +14,7 @@ function ForgotPassword() {
     e.preventDefault()
     if (password === confirmPassword) {
       try {
-        const response = await axios.post(`http://localhost:8080/api/v1.0/tweets/${username}/forgot`, password)
+        const response = await axios.post(`/${username}/forgot`, password)
         if (response.data) {
           setError("")
           setConfirm(true)

@@ -39,7 +39,7 @@ function Tweet(props) {
   async function handleSubmit(e) {
     e.preventDefault()
     try {
-      await axios.put(`http://localhost:8080/api/v1.0/tweets/${globalState.user.username}/update/${tweet.id}`, theTweet)
+      await axios.put(`/${globalState.user.username}/update/${tweet.id}`, theTweet)
       globalDispatch({ type: "updateTweetList" })
       setEdit(false)
     } catch (e) {
@@ -53,7 +53,7 @@ function Tweet(props) {
     e.preventDefault()
     try {
       // When clicked, sends api call to delete tweet
-      await axios.delete(`http://localhost:8080/api/v1.0/tweets/${globalState.user.username}/delete/${tweet.id}`)
+      await axios.delete(`/${globalState.user.username}/delete/${tweet.id}`)
       globalDispatch({ type: "updateTweetList" })
     } catch (e) {
       console.log(e.response.data)
@@ -64,7 +64,7 @@ function Tweet(props) {
   async function handleLike() {
     try {
       // When clicked, sends api call to set value {username, true} to likes field.
-      await axios.put(`http://localhost:8080/api/v1.0/tweets/${globalState.user.username}/like/${tweet.id}`)
+      await axios.put(`/${globalState.user.username}/like/${tweet.id}`)
       setLike(true)
       globalDispatch({ type: "updateTweetList" })
     } catch (e) {
@@ -76,7 +76,7 @@ function Tweet(props) {
   async function handleUnlike() {
     try {
       // When clicked, sends api call to set value {username, false} to likes field.
-      await axios.put(`http://localhost:8080/api/v1.0/tweets/${globalState.user.username}/unlike/${tweet.id}`)
+      await axios.put(`/${globalState.user.username}/unlike/${tweet.id}`)
       setLike(false)
       globalDispatch({ type: "updateTweetList" })
     } catch (e) {

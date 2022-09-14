@@ -14,7 +14,7 @@ function LandingUser() {
   useEffect(() => {
     async function fetchAllTweets() {
       try {
-        const response = await axios.get("http://localhost:8080/api/v1.0/tweets/all")
+        const response = await axios.get("/all")
         setTweets(response.data)
         globalDispatch({ type: "sameTweetList" })
       } catch (e) {

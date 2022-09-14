@@ -50,7 +50,7 @@ function Search() {
       const ourRequest = axios.CancelToken.source()
       async function fetchResults() {
         try {
-          const response = await axios.get(`http://localhost:8080/api/v1.0/tweets/user/search/${state.searchTerm}`)
+          const response = await axios.get(`/user/search/${state.searchTerm}`)
           setState(draft => {
             draft.results = response.data
             draft.show = "results"

@@ -25,7 +25,7 @@ function ReplyTweet() {
   async function handleSubmit(e) {
     e.preventDefault()
     try {
-      await axios.put(`http://localhost:8080/api/v1.0/tweets/${globalState.user.username}/reply/${tweetId}`, theTweet)
+      await axios.put(`/${globalState.user.username}/reply/${tweetId}`, theTweet)
       globalDispatch({ type: "updateTweetList" })
       setDescription("")
       setTag("")

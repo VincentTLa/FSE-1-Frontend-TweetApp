@@ -29,7 +29,7 @@ function Register() {
     e.preventDefault()
     if (password === confirmPassword) {
       try {
-        await axios.post("http://localhost:8080/api/v1.0/tweets/register", theUser)
+        await axios.post("/register", theUser)
         console.log("User has successfully been created")
         navigate("/login")
       } catch (e) {

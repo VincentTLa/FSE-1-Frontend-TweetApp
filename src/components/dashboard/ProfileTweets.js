@@ -14,7 +14,7 @@ function ProfileTweets() {
   useEffect(() => {
     async function fetchAllUserTweets() {
       try {
-        const response = await axios.get(`http://localhost:8080/api/v1.0/tweets/${username}`)
+        const response = await axios.get(`/${username}`)
         setUserTweets(response.data)
         setIsLoading(false)
         setError(false)

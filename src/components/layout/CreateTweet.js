@@ -23,7 +23,7 @@ function CreateTweet() {
   async function handleSubmit(e) {
     e.preventDefault()
     try {
-      await axios.post(`http://localhost:8080/api/v1.0/tweets/${globalState.user.username}/add`, theTweet)
+      await axios.post(`/${globalState.user.username}/add`, theTweet)
       globalDispatch({ type: "updateTweetList" })
       setDescription("")
       setTag("")

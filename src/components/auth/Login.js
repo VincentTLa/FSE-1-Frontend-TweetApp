@@ -19,7 +19,7 @@ function Login() {
   async function handleSubmit(e) {
     e.preventDefault()
     try {
-      const response = await axios.post("http://localhost:8080/api/v1.0/tweets/login", theUser)
+      const response = await axios.post("/login", theUser)
       if (response.data) {
         globalDispatch({ type: "login", data: response.data })
         navigate("/")
