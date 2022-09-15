@@ -24,7 +24,7 @@ import ForgotPassword from "./components/auth/ForgotPassword"
 
 // Axios default URL
 import axios from "axios"
-axios.defaults.baseURL = "http://3.25.87.106/api/v1.0/tweets"
+axios.defaults.baseURL = "http://tweetapp-backend-vincentla.eba-chqxszyq.ap-southeast-2.elasticbeanstalk.com/api/v1.0/tweets"
 
 function App() {
   const initialState = {
