@@ -38,7 +38,7 @@ function TweetThread() {
       replies.forEach(reply => {
         async function fetchReplies() {
           try {
-            const response = await axios.get(`http://localhost:8080/api/v1.0/tweets/main/${reply.id}`)
+            const response = await axios.get(`/main/${reply.id}`)
             if (response.data !== "") replyList.push(response.data)
             console.log(response.data)
             globalDispatch({ type: "updateTweetList" })
